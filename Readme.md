@@ -8,6 +8,7 @@ Rules applied to this version implementation:
 
 - Local file location for this iteration
 - Just one file
+- csv file contains headers
 
 ## Output
 
