@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -25,4 +26,10 @@ func (people People) toString() string {
 
 func (person Person) toString() string {
 	return fmt.Sprintf("Person -> name: %s | lastname: %s | age: %d", person.firstName, person.lastName, person.age)
+}
+
+func asRecord(entry string) Person {
+	fields := strings.SplitAfter(entry, ",")
+	age, _ := strconv.Atoi(fields[2])
+	return Person{fields[0], fields[1], age}
 }
