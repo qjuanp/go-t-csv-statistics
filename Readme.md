@@ -21,3 +21,15 @@ Average age
 ## Usage
 
 `go run main.go ./data/10-records.csv`
+
+# Backlog
+
+- [ ] Read miltiple files
+- [ ] Read files from remote location (file://, http://, etc)
+- [ ] Read files in parallel
+- [ ] Streaming processing approach
+
+
+## Hypothesis
+
+- Read files in chunks vs process an entire file
