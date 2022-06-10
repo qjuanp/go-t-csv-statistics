@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -25,7 +26,33 @@ func main() {
 
 	people := readCsv(filePath)
 
+	averageAge := calculateAverageAge(people)
+	medianPerson := calculateMedian(people)
+
 	fmt.Println(people.toString())
+	fmt.Println(fmt.Sprintf("# People: %d", len(people)))
+	fmt.Println(fmt.Sprintf("Average age: %d", averageAge))
+	fmt.Println(fmt.Sprintf("Median: %s", medianPerson.toString()))
+}
+
+func calculateMedian(people People) Person {
+	median := (len(people) + 1) / 2
+
+	sort.Slice(people, func(i, j int) bool {
+		return people[i].age < people[j].age
+	})
+
+	return people[median]
+}
+
+func calculateAverageAge(people People) int {
+	sum := 0
+
+	for _, person := range people {
+		sum += person.age
+	}
+
+	return sum / len(people)
 }
 
 func readCsv(path string) People {
@@ -40,8 +67,10 @@ func readCsv(path string) People {
 
 	scanner := bufio.NewScanner(file)
 
-	for scanner.Scan() {
-		people = append(people, asRecord(scanner.Text()))
+	for i := 0; scanner.Scan(); i++ {
+		if i != 0 {
+			people = append(people, asRecord(scanner.Text()))
+		}
 	}
 
 	if err := scanner.Err(); err != nil {
