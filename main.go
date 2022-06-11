@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/url"
+	"os"
 
 	"github.com/alecthomas/kong"
 )
@@ -21,16 +23,25 @@ func main() {
 	var people People
 	switch ctx.Command() {
 	case "json <refurl>":
-		fmt.Printf("Json processin %s [%+v]", ctx.Command(), CLI)
+		fmt.Printf("Use reference request to: %s", CLI.Json.RefUrl)
 		refUrl, _ := url.Parse(CLI.Json.RefUrl)
 		csvUrls := LocateUrls(*refUrl)
 		for _, csvUrl := range csvUrls {
 			people = append(people, mapCsv(readRemoteFile(csvUrl))...)
 		}
-		fmt.Println(report(people))
 	case "csv <paths>":
-		fmt.Printf("csv processin %s [%+v]", ctx.Command(), CLI)
+		fmt.Printf("Read %d csv files.\nPaths: %v", len(CLI.Csv.Paths), CLI.Csv.Paths)
+		for _, csvPath := range CLI.Csv.Paths {
+			if _, err := os.Stat(csvPath); !os.IsNotExist(err) { // File can be accessed
+				people = append(people, mapCsv(readLocalFile(csvPath))...)
+			} else if url, err := url.Parse(csvPath); err == nil { // Url can be parsed
+				people = append(people, mapCsv(readRemoteFile(*url))...)
+			} else {
+				log.Fatalf("Parameter not recognizes %s", csvPath)
+			}
+		}
 	default:
 		panic(ctx.Command())
 	}
+	fmt.Println(report(people))
 }
