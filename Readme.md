@@ -24,8 +24,9 @@ Average age
 
 # Backlog
 
-- [ ] Read miltiple files
-- [ ] Read files from remote location (file://, http://, etc)
+- [x] Read miltiple files
+- [x] Read files from remote location (file://, http://, etc)
+- [ ] Performance report
 - [ ] Read files in parallel
 - [ ] Streaming processing approach
 
