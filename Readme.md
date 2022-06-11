@@ -27,21 +27,17 @@ Average age
 - [x] Read miltiple files
 - [x] Read files from remote location (file://, http://, etc)
 - [ ] Performance report
+    - numer of files
+    - Total processing time
+- [ ] Handle file format
 - [ ] Read files in parallel
+- [ ] Report parallel performance
+    - Total processing time
+    - numer of files
+    - number of threads used
 - [ ] Streaming processing approach
 
 
 ## Hypothesis
 
 - Read files in chunks vs process an entire file
-
-
-Json
-    FileLocator - Reads the json and obtains the CSV files locations
-    Mapper - Reads a file and maps every recod
-    Analise
-    Report
-Csv
-    Mapper
-    Analise
-    Report
