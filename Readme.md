@@ -33,3 +33,14 @@ Average age
 ## Hypothesis
 
 - Read files in chunks vs process an entire file
+
+
+Json
+    FileLocator - Reads the json and obtains the CSV files locations
+    Mapper - Reads a file and maps every recod
+    Analise
+    Report
+Csv
+    Mapper
+    Analise
+    Report

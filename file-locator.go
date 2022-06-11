@@ -9,19 +9,15 @@ import (
 	"net/url"
 )
 
-type FileLocator struct {
-	url url.URL
-}
-
 type RefFile struct {
 	Files []string `json:"files"`
 }
 
-func (locator FileLocator) LocateUrls() []url.URL {
-	resp, httpErr := http.Get(locator.url.String())
+func LocateUrls(refUrl url.URL) []url.URL {
+	resp, httpErr := http.Get(refUrl.String())
 
 	if httpErr != nil {
-		log.Fatalf("Cannot get reference file from %s", locator.url.String())
+		log.Fatalf("Cannot get reference file from %s", refUrl.String())
 	}
 
 	defer resp.Body.Close()

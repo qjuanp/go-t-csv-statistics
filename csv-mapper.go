@@ -3,20 +3,12 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"os"
+	"io"
 )
 
-func readCsv(path string) People {
+func mapCsv(reader io.Reader) People {
 	var people People
-	file, err := os.Open(path)
-
-	if err != nil {
-		fmt.Print(err)
-	}
-
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(reader)
 
 	for i := 0; scanner.Scan(); i++ {
 		if i != 0 {
