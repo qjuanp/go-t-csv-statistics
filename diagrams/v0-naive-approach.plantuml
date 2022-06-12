@@ -1,0 +1,34 @@
+@startuml
+
+() "Command Line" as cli
+[Controller] as ctr
+cli - ctr
+
+
+() "JSON" as jsonRef
+[File Locator] as fl
+jsonRef - fl
+ctr ..> jsonRef
+
+[Mapper] as mapper
+
+
+() "Url" as url
+[File Reader] as fr
+url - fr
+ctr ..> url
+fl ..> url
+fr ..> mapper
+
+() "DataSet" as ds
+[Analizer] as an
+ds - an
+mapper ..> ds
+
+() "Report" as r
+[Reporter] as report
+r - report
+an ..> r
+
+
+@enduml
