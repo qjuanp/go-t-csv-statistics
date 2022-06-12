@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/alecthomas/kong"
 )
@@ -19,6 +20,7 @@ var CLI struct {
 }
 
 func main() {
+	defer log.Printf("Processing time: %s", time.Since(time.Now()))
 	ctx := kong.Parse(&CLI)
 	var people People
 	switch ctx.Command() {
